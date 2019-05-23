@@ -54,9 +54,7 @@ export default class SaleMobile extends Component {
   // }
   render() {
     return (
-
-        <CRM/>
-
+      <MyFrame/>
     );
   }
 }

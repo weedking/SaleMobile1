@@ -25,11 +25,8 @@ class MyFrame extends React.Component<any, any>{
 
     renderCRMContent(pageText) {
         return (
-            <View >
 
-                {/*<MyGrid/>*/}
-                <CRM/>
-            </View>
+        <CRM/>
         );
     }
     onChangeTab(tabName) {
