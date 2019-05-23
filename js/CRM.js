@@ -84,7 +84,7 @@ class FirstPage extends Component
     }
 }
 
-// 二级页面
+// 二级页面,客户公司列表
 class SecondPage extends Component
 {
     // test1=111;
@@ -101,7 +101,13 @@ class SecondPage extends Component
 
     }
 
-    componentDidMount() {//组件挂载时执行的代码
+    componentDidMount() {
+        //组件挂载时执行的代码
+        // this.setState = (state,callback)=>{
+        //
+        // };
+        this.getCustomerList();//组件挂载时，只执行一次查询
+
         this.timerID = setInterval(
             () => this.tick(),
             1000 //每秒更新一次
@@ -109,14 +115,16 @@ class SecondPage extends Component
     }
 
     tick() {//定时器
-        this.setState({
-            date: new Date(),//创建当前时间
-            child:'删除',
-        });
-        this.getCustomerList();
+        // this.setState({
+        //     date: new Date(),//创建当前时间
+        //     child:'删除',
+        // });
+
+        // this.getCustomerList();
     }
 
     componentWillUnmount() {
+
         clearInterval(this.timerID);//清理计时器
 
     }
@@ -254,7 +262,7 @@ class SecondPage extends Component
     }
 };
 
-
+//三级页面，客户公司详细列表
 class HuiYuan extends Component{
     constructor(props){
         super(props);
@@ -266,14 +274,16 @@ class HuiYuan extends Component{
     }
 
     componentDidMount() {//组件挂载时执行的代码
+        this.getCustomerByNo();//组件挂载时，只执行一次查询
         this.timerID = setInterval(
             () => this.tick(),
             1000 //每秒更新一次
         );
 
         this.setState({
-            id:this.props.id,
-            newValue:this.props.newValue,
+            // id:this.props.id,
+            // newValue:this.props.newValue,
+
             // id:this.props.num,
 
         })
@@ -281,10 +291,10 @@ class HuiYuan extends Component{
 
     tick() {//定时器
         this.setState({
-            date: new Date(),//创建当前时间
-            child:'删除',
+        //     date: new Date(),//创建当前时间
+        //     child:'删除',
         });
-        this.getCustomerByNo();
+        // this.getCustomerByNo();
     }
 
     componentWillUnmount() {
