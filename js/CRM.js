@@ -7,8 +7,9 @@
 import React, { Component } from 'react';
 import {AppRegistry, StyleSheet, FlatList, Text, TextInput, ListView, View, Image, TouchableOpacity,
     TouchableHighlight,ScrollView, Dimensions, ActivityIndicator, RefreshControl} from 'react-native';
-import { Button, List, SearchBar, WhiteSpace } from 'antd-mobile-rn';
+import { Button, List, SearchBar, WhiteSpace, WingBlank } from 'antd-mobile-rn';
 import {Navigator } from 'react-native-deprecated-custom-components';
+import AddCustomer from "../js/AddCustomer";
 
 
 const Item = List.Item;
@@ -166,7 +167,7 @@ class SecondPage extends Component
             });
     }
 
-
+//跳转到客户公司详情页
     gotoPage1(component, title)
     {
         this.props.navigator.push(
@@ -176,6 +177,21 @@ class SecondPage extends Component
                     title: title,
                     lastPageTitle: this.props.title,
                     id: this.state.id
+
+                }
+            })
+    }
+
+//跳转到新增客户页面
+    gotoAddCustomer(component, title)
+    {
+        this.props.navigator.push(
+            {
+                component: component,
+                passProps: {
+                    title: title,
+                    lastPageTitle: this.props.title,
+                    // id: this.state.id
 
                 }
             })
@@ -236,7 +252,30 @@ class SecondPage extends Component
 
         // const { params } = this.props.navigation.state;
         return (
-            <View style={{flex: 1, paddingTop:100}}>
+            <View style={{flex: 1, paddingTop:80}}>
+
+
+                <WingBlank
+                    style={{
+                        // marginTop: 20,
+                        flexDirection: 'row',
+                        justifyContent: 'space-between',
+                        alignItems: 'center',
+                    }}
+                >
+
+
+
+                    <TouchableOpacity onPress={()=>{this.gotoAddCustomer(AddCustomer, '新增客户');}}>
+                        {/*<Image source={require('../img/customer64.png')} />*/}
+                        <Text>新增客户</Text>
+                    </TouchableOpacity>
+
+                </WingBlank>
+
+
+
+                <WhiteSpace size="xl" />
                 <FlatList
                     data={this.state.dataSource}
                     renderItem={({item}) => <TouchableOpacity style={styles.flatitemview} onPress={()=>{this.gotoPage1(HuiYuan, <Text> {item.name}</Text>);
