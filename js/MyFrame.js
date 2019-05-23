@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {AppRegistry, StyleSheet, Text, View, ScrollView, Navigator,} from 'react-native';
 import {Accordion, Button, List, Icon, SearchBar, TabBar, WhiteSpace} from 'antd-mobile-rn';
 import MyGrid from "../js/MyGrid";
+import CRM from "../js/CRM";
 
 class MyFrame extends React.Component<any, any>{
     constructor(props) {
@@ -26,7 +27,8 @@ class MyFrame extends React.Component<any, any>{
         return (
             <View >
 
-                <MyGrid/>
+                {/*<MyGrid/>*/}
+                <CRM/>
             </View>
         );
     }

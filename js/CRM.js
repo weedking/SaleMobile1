@@ -1,35 +1,21 @@
+/**
+ * Sample React Native App
+ * https://github.com/facebook/react-native
+ * @flow
+ */
+
 import React, { Component } from 'react';
-import {AppRegistry, StyleSheet, Text, View, ScrollView, FlatList, TextInput, ListView, Image, TouchableOpacity,
-    TouchableHighlight } from 'react-native';
-import {Grid, List, SearchBar, TabBar, WhiteSpace} from 'antd-mobile-rn';
+import {AppRegistry, StyleSheet, FlatList, Text, TextInput, ListView, View, Image, TouchableOpacity,
+    TouchableHighlight,ScrollView, Dimensions, ActivityIndicator, RefreshControl} from 'react-native';
+import { Button, List, SearchBar, WhiteSpace } from 'antd-mobile-rn';
 import {Navigator } from 'react-native-deprecated-custom-components';
+
 
 const Item = List.Item;
 const Brief = Item.Brief;
 global.aa = 1;
 
-const data = [{
-    icon: '../img/work1.png',
-    text: '客户',
-    index: 1
-}, {
-    icon: '../img/work1.png',
-    text: 'CRM提醒',
-    index: 2
-},{
-    icon: '../img/work1.png',
-    text: '销售线索',
-    index: 3
-},{
-    icon: '../img/work1.png',
-    text: '销售业绩',
-    index: 4
-}
-];
-
-
-class MyGrid extends React.Component<any, any>{
-
+class CRM extends Component {
     configureScene(route, routeStack)
     {
         if (route.type == 'Modal') {
@@ -38,24 +24,10 @@ class MyGrid extends React.Component<any, any>{
         return Navigator.SceneConfigs.PushFromRight;
     }
 
-    constructor(props) {
-        super(props);
-        this.state = {
-          a:0,
-        };
-    }
-
-    handClick(index){
-        alert(index);
-        this.setState({
-            a:1,
-        });
-    }
-
     render() {
         return (
             <Navigator
-                style={{flex:1}}
+                style={{flex:1,marginTop: 33}}
                 initialRoute={{component: FirstPage, passProps: {title: '首页', rightText: '菜单'}}}
                 configureScene={this.configureScene}
                 renderScene={(route, navigator) => <route.component route={route} navigator={navigator} {...route.passProps} />}
@@ -65,12 +37,8 @@ class MyGrid extends React.Component<any, any>{
                         routeMapper={NavigationBarRouteMapper}
                     />}
             />
-
-
-
         );
     }
-
 }
 
 // 首页
@@ -102,20 +70,19 @@ class FirstPage extends Component
         return (
             <View style={{paddingTop: 80}}>
 
+
                 {/*<Button onClick={() => this.gotoPage(SecondPage, '二级页面')}>*/}
                 {/*<Text style={{fontSize:28, padding: 12}}>点击跳转到二级页面</Text>*/}
                 {/*/!*<Text style={{padding: 10, fontSize: 20}}>这是首页，这是首页，这是首页，这是首页，这是首页</Text>*!/*/}
                 {/*</Button>*/}
 
                 <TouchableOpacity onPress={()=>{this.gotoPage(SecondPage, '客户列表');}}>
-                    <Image source={require('../img/me.png')} />
+                    <Image source={require('../img/customer64.png')} />
                 </TouchableOpacity>
             </View>
         );
     }
 }
-
-
 
 // 二级页面
 class SecondPage extends Component
@@ -445,7 +412,7 @@ const styles = StyleSheet.create({
     // 导航栏
     navContainer: {
         backgroundColor: '#41ABF7',
-        paddingTop: 12,
+        paddingTop: 30,
         paddingBottom: 10,
         flex: 1
     },
@@ -517,6 +484,4 @@ const styles = StyleSheet.create({
 
 });
 
-
-
-export default MyGrid;
+export default CRM;
