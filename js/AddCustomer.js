@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {AppRegistry, StyleSheet, FlatList, Text, TextInput, ListView, View, Image, TouchableOpacity,
-    TouchableHighlight,ScrollView, Dimensions, ActivityIndicator, RefreshControl} from 'react-native';
-import { Grid, Button, List, SearchBar, WhiteSpace, WingBlank, InputItem,} from 'antd-mobile-rn';
+    TouchableHighlight,ScrollView, Dimensions, ActivityIndicator, RefreshControl,Button} from 'react-native';
+import { Grid,  List, SearchBar, WhiteSpace, WingBlank, InputItem,} from 'antd-mobile-rn';
 
 
 class AddCustomer extends React.Component<any, any>{
@@ -10,6 +10,7 @@ class AddCustomer extends React.Component<any, any>{
         this.state = {
             // showValue:"",
             id: '999',
+            key1: '',
             name: '',
             city: '',
             phone: '',
@@ -64,10 +65,10 @@ class AddCustomer extends React.Component<any, any>{
         let remark= this.state.remark;
 
         //这一串还有问题
-        var url= preurl+createID+and+name1+name+and+address1+address+and+city1+city+and+phone1+phone+and+contacts1+contacts+and+email1+email+and+source1+source+
-            and+title1+title+and+need1+need+and+url1+urlfor+and+remark1+remark;
+        // var url= preurl+createID+and+key11+key1+and+name1+name+and+address1+address+and+city1+city+and+phone1+phone+and+contacts1+contacts+and+email1+email+and+source1+source+
+        //     and+title1+title+and+need1+need+and+url1+urlfor+and+remark1+remark;
 
-        // var url = "http://119.23.77.187:8080/addCustomer?id=74&name=99方";
+        var url = "http://119.23.77.187:8080/addCustomer?id=88&name=99方&city=桂林";
 
         var getInformation ={
             method:"POST",
@@ -287,15 +288,24 @@ class AddCustomer extends React.Component<any, any>{
                         {/*提交*/}
                     {/*</Button>*/}
 
-                    <TouchableOpacity onPress={()=>{this.handleClick.bind(this);}}>
-                        {/*<Image source={require('../img/customer64.png')} />*/}
-                        <Text>新新</Text>
-                    </TouchableOpacity>
+                    {/*<TouchableOpacity onPress={()=>{this.handleClick.bind(this);}}>*/}
+                        {/*/!*<Image source={require('../img/customer64.png')} />*!/*/}
+                        {/*<Text>新新</Text>*/}
+                    {/*</TouchableOpacity>*/}
+
+                    <Button
+                        onPress={this.handleClick.bind(this)}
+                        title="Learn More"
+                        color="#841584"
+                        accessibilityLabel="Learn more about this purple button"
+                    />
 
 
                 </WingBlank>
                 <Text>{this.state.name}</Text>
+                <Text>{this.state.address}</Text>
                 <Text>{this.state.city}</Text>
+                <Text>{this.state.url}</Text>
             </ScrollView>
 
 
