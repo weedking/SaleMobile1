@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {AppRegistry, StyleSheet, FlatList, Text, TextInput, ListView, View, Image, TouchableOpacity,
-    TouchableHighlight,ScrollView, Dimensions, ActivityIndicator, RefreshControl,Button} from 'react-native';
+    TouchableHighlight,ScrollView, Dimensions, ActivityIndicator, RefreshControl,Button, KeyboardAvoidingView} from 'react-native';
 import { Grid,  List, SearchBar, WhiteSpace, WingBlank, InputItem,} from 'antd-mobile-rn';
 
 
@@ -9,7 +9,7 @@ class AddCustomer extends React.Component<any, any>{
         super(props);
         this.state = {
             // showValue:"",
-            id: '999',
+            id: '',
             key1: '',
             name: '',
             city: '',
@@ -51,24 +51,25 @@ class AddCustomer extends React.Component<any, any>{
         var remark1="remark=";
 
 
-        let createID= this.state.id;
-        let name= this.state.name;
-        let address= this.state.address
-        let city= this.state.city;
-        let phone= this.state.phone;
-        let contacts= this.state.contacts;
-        let email= this.state.email;
-        let source= this.state.source;
-        let title= this.state.title;
-        let need= this.state.need;
-        let urlfor= this.state.url;
-        let remark= this.state.remark;
+        var createID= Number(this.state.id);
+        var key1= this.state.key1;
+        var name= this.state.name;
+        var address= this.state.address
+        var city= this.state.city;
+        var phone= this.state.phone;
+        var contacts= this.state.contacts;
+        var email= this.state.email;
+        var source= this.state.source;
+        var title= this.state.title;
+        var need= this.state.need;
+        var urlfor= this.state.url;
+        var remark= this.state.remark;
 
         //这一串还有问题
-        // var url= preurl+createID+and+key11+key1+and+name1+name+and+address1+address+and+city1+city+and+phone1+phone+and+contacts1+contacts+and+email1+email+and+source1+source+
-        //     and+title1+title+and+need1+need+and+url1+urlfor+and+remark1+remark;
+        var url= preurl+createID+and+key11+key1+and+name1+name+and+address1+address+and+city1+city+and+phone1+phone+and+contacts1+contacts+and+email1+email+and+source1+source+
+            and+title1+title+and+need1+need+and+url1+urlfor+and+remark1+remark;
 
-        var url = "http://119.23.77.187:8080/addCustomer?id=88&name=99方&city=桂林";
+        // var url = "http://119.23.77.187:8080/addCustomer?id=88&name=99方&city=桂林";
 
         var getInformation ={
             method:"POST",
@@ -118,161 +119,180 @@ class AddCustomer extends React.Component<any, any>{
                 <WhiteSpace size="xl" />
                 <WhiteSpace size="xl" />
 
-                <List renderHeader={'基本信息'}>
-                    <InputItem
-                        clear
-                        // value=""
-                        onChange={value => {
-                            this.setState({
-                                name: value,
-                            });
-                        }}
-                        labelNumber={5}
-                        placeholder=""
-                    >
-                        公司名称：
-                    </InputItem>
+                <KeyboardAvoidingView behavior="padding" keyboardVerticalOffset={150}>
+                    <List renderHeader={'基本信息'}>
+                        <InputItem
+                            clear
+                            // value=""
+                            onChange={value => {
+                                this.setState({
+                                    id: value,
+                                });
+                            }}
+                            labelNumber={5}
+                            placeholder=""
+                        >
+                            公司ID：
+                        </InputItem>
 
-                    <InputItem
-                        clear
-                        // value=""
-                        onChange={value => {
-                            this.setState({
-                                address: value,
-                            });
-                        }}
-                        labelNumber={5}
-                        placeholder=""
-                    >
-                        公司地址：
-                    </InputItem>
+                        <InputItem
+                            clear
+                            // value=""
+                            onChange={value => {
+                                this.setState({
+                                    name: value,
+                                });
+                            }}
+                            labelNumber={5}
+                            placeholder=""
+                        >
+                            公司名称：
+                        </InputItem>
 
-                    <InputItem
-                        clear
-                        // value=""
-                        onChange={value => {
-                            this.setState({
-                                city: value,
-                            });
-                        }}
-                        labelNumber={5}
-                        placeholder=""
-                    >
-                        所在城市：
-                    </InputItem>
+                        <InputItem
+                            clear
+                            // value=""
+                            onChange={value => {
+                                this.setState({
+                                    address: value,
+                                });
+                            }}
+                            labelNumber={5}
+                            placeholder=""
+                        >
+                            公司地址：
+                        </InputItem>
 
-                    <InputItem
-                        clear
-                        // value=""
-                        onChange={value => {
-                            this.setState({
-                                url: value,
-                            });
-                        }}
-                        labelNumber={5}
-                        placeholder=""
-                    >
-                        公司网址：
-                    </InputItem>
+                        <InputItem
+                            clear
+                            // value=""
+                            onChange={value => {
+                                this.setState({
+                                    city: value,
+                                });
+                            }}
+                            labelNumber={5}
+                            placeholder=""
+                        >
+                            所在城市：
+                        </InputItem>
 
-                    <InputItem
-                        clear
-                        // value=""
-                        onChange={value => {
-                            this.setState({
-                                contacts: value,
-                            });
-                        }}
-                        labelNumber={5}
-                        placeholder=""
-                    >
-                        联系人：
-                    </InputItem>
+                        <InputItem
+                            clear
+                            // value=""
+                            onChange={value => {
+                                this.setState({
+                                    url: value,
+                                });
+                            }}
+                            labelNumber={5}
+                            placeholder=""
+                        >
+                            公司网址：
+                        </InputItem>
 
-                    <InputItem
-                        clear
-                        // value=""
-                        onChange={value => {
-                            this.setState({
-                                title: value,
-                            });
-                        }}
-                        labelNumber={5}
-                        placeholder=""
-                    >
-                        职务：
-                    </InputItem>
+                        <InputItem
+                            clear
+                            // value=""
+                            onChange={value => {
+                                this.setState({
+                                    contacts: value,
+                                });
+                            }}
+                            labelNumber={5}
+                            placeholder=""
+                        >
+                            联系人：
+                        </InputItem>
 
-                    <InputItem
-                        clear
-                        // value=""
-                        onChange={value => {
-                            this.setState({
-                                phone: value,
-                            });
-                        }}
-                        labelNumber={5}
-                        placeholder=""
-                    >
-                        联系电话：
-                    </InputItem>
+                        <InputItem
+                            clear
+                            // value=""
+                            onChange={value => {
+                                this.setState({
+                                    title: value,
+                                });
+                            }}
+                            labelNumber={5}
+                            placeholder=""
+                        >
+                            职务：
+                        </InputItem>
 
-                    <InputItem
-                        clear
-                        // value=""
-                        onChange={value => {
-                            this.setState({
-                                source: value,
-                            });
-                        }}
-                        labelNumber={5}
-                        placeholder=""
-                    >
-                        客户来源：
-                    </InputItem>
+                        <InputItem
+                            clear
+                            // value=""
+                            onChange={value => {
+                                this.setState({
+                                    phone: value,
+                                });
+                            }}
+                            labelNumber={5}
+                            placeholder=""
+                        >
+                            联系电话：
+                        </InputItem>
 
-                    <InputItem
-                        clear
-                        // value=""
-                        onChange={value => {
-                            this.setState({
-                                email: value,
-                            });
-                        }}
-                        labelNumber={5}
-                        placeholder=""
-                    >
-                        邮箱：
-                    </InputItem>
+                        <InputItem
+                            clear
+                            // value=""
+                            onChange={value => {
+                                this.setState({
+                                    source: value,
+                                });
+                            }}
+                            labelNumber={5}
+                            placeholder=""
+                        >
+                            客户来源：
+                        </InputItem>
 
-                    <InputItem
-                        clear
-                        // value=""
-                        onChange={value => {
-                            this.setState({
-                                need: value,
-                            });
-                        }}
-                        labelNumber={5}
-                        placeholder=""
-                    >
-                        所需产品：
-                    </InputItem>
+                        <InputItem
+                            clear
+                            // value=""
+                            onChange={value => {
+                                this.setState({
+                                    email: value,
+                                });
+                            }}
+                            labelNumber={5}
+                            placeholder=""
+                        >
+                            邮箱：
+                        </InputItem>
 
-                    <InputItem
-                        clear
-                        // value=""
-                        onChange={value => {
-                            this.setState({
-                                remark: value,
-                            });
-                        }}
-                        labelNumber={5}
-                        placeholder=""
-                    >
-                        备注：
-                    </InputItem>
-                </List>
+                        <InputItem
+                            clear
+                            // value=""
+                            onChange={value => {
+                                this.setState({
+                                    need: value,
+                                });
+                            }}
+                            labelNumber={5}
+                            placeholder=""
+                        >
+                            所需产品：
+                        </InputItem>
+
+                        <InputItem
+                            clear
+                            // value=""
+                            onChange={value => {
+                                this.setState({
+                                    remark: value,
+                                });
+                            }}
+                            labelNumber={5}
+                            placeholder=""
+                        >
+                            备注：
+                        </InputItem>
+                    </List>
+
+                </KeyboardAvoidingView>
+
+
 
                 {/*<Text>{this.state.name}</Text>*/}
                 <WingBlank
@@ -295,17 +315,17 @@ class AddCustomer extends React.Component<any, any>{
 
                     <Button
                         onPress={this.handleClick.bind(this)}
-                        title="Learn More"
+                        title="提交"
                         color="#841584"
-                        accessibilityLabel="Learn more about this purple button"
+                        accessibilityLabel="submit button"
                     />
 
 
                 </WingBlank>
-                <Text>{this.state.name}</Text>
-                <Text>{this.state.address}</Text>
-                <Text>{this.state.city}</Text>
-                <Text>{this.state.url}</Text>
+                {/*<Text>{this.state.name}</Text>*/}
+                {/*<Text>{this.state.address}</Text>*/}
+                {/*<Text>{this.state.city}</Text>*/}
+                {/*<Text>{this.state.url}</Text>*/}
             </ScrollView>
 
 
