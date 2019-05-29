@@ -290,42 +290,24 @@ class AddCustomer extends React.Component<any, any>{
                         </InputItem>
                     </List>
 
+                    <WingBlank
+                        style={{
+                            marginTop: 20,
+                            flexDirection: 'row',
+                            justifyContent: 'space-between',
+                            alignItems: 'center',
+                        }}
+                    >
+                        <Button
+                            onPress={this.handleClick.bind(this)}
+                            title="提交"
+                            color="#841584"
+                            accessibilityLabel="submit button"
+                        />
+
+                    </WingBlank>
+
                 </KeyboardAvoidingView>
-
-
-
-                {/*<Text>{this.state.name}</Text>*/}
-                <WingBlank
-                    style={{
-                        marginTop: 20,
-                        flexDirection: 'row',
-                        justifyContent: 'space-between',
-                        alignItems: 'center',
-                    }}
-                >
-
-                    {/*<Button type="ghost" size="large" onClick={() => this.handleClick.bind(this)}>*/}
-                        {/*提交*/}
-                    {/*</Button>*/}
-
-                    {/*<TouchableOpacity onPress={()=>{this.handleClick.bind(this);}}>*/}
-                        {/*/!*<Image source={require('../img/customer64.png')} />*!/*/}
-                        {/*<Text>新新</Text>*/}
-                    {/*</TouchableOpacity>*/}
-
-                    <Button
-                        onPress={this.handleClick.bind(this)}
-                        title="提交"
-                        color="#841584"
-                        accessibilityLabel="submit button"
-                    />
-
-
-                </WingBlank>
-                {/*<Text>{this.state.name}</Text>*/}
-                {/*<Text>{this.state.address}</Text>*/}
-                {/*<Text>{this.state.city}</Text>*/}
-                {/*<Text>{this.state.url}</Text>*/}
             </ScrollView>
 
 

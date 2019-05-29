@@ -3,6 +3,7 @@ import {AppRegistry, StyleSheet, Text, View, ScrollView, Navigator,} from 'react
 import {Accordion, Button, List, Icon, SearchBar, TabBar, WhiteSpace} from 'antd-mobile-rn';
 import MyGrid from "../js/MyGrid";
 import CRM from "../js/CRM";
+import Work from "./Work";
 
 class MyFrame extends React.Component<any, any>{
     constructor(props) {
@@ -29,6 +30,13 @@ class MyFrame extends React.Component<any, any>{
         <CRM/>
         );
     }
+    renderWorkContent(pageText) {
+        return (
+
+         <Work/>
+        );
+    }
+
     onChangeTab(tabName) {
         this.setState({
             selectedTab: tabName,
@@ -46,16 +54,18 @@ class MyFrame extends React.Component<any, any>{
                     title="工作"
                     // icon={<Icon name="home" />}
                     icon={require('../img/work1.png')}
+                    // blueTab
                     selected={this.state.selectedTab === 'blueTab'}
                     onPress={() => this.onChangeTab('blueTab')}
                 >
-                    {this.renderContent('工作')}
+                    {this.renderWorkContent('工作')}
                 </TabBar.Item>
                 <TabBar.Item
                     // icon={<Icon name="ordered-list" />}
                     icon={require('../img/crm.png')}
                     title="CRM"
                     badge={2}
+                    // redTab
                     selected={this.state.selectedTab === 'redTab'}
                     onPress={() => this.onChangeTab('redTab')}
                 >
