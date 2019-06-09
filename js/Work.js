@@ -10,6 +10,8 @@ import {AppRegistry, StyleSheet, FlatList, Text, TextInput, ListView, View, Imag
 import { Button, List, SearchBar, WhiteSpace, WingBlank } from 'antd-mobile-rn';
 import {Navigator } from 'react-native-deprecated-custom-components';
 
+import WebViewScreen from './WebViewScreen';
+
 
 var {
     height: deviceHeight,
@@ -29,7 +31,7 @@ class Work extends Component {
         return (
             <Navigator
                 style={{flex:1,marginTop: 33}}
-                initialRoute={{component: SignIn, passProps: {title: '工作首页', rightText: '菜单'}}}
+                initialRoute={{component: FirstPage, passProps: {title: '工作首页', rightText: '菜单'}}}
                 configureScene={this.configureScene}
                 renderScene={(route, navigator) => <route.component route={route} navigator={navigator} {...route.passProps} />}
                 navigationBar={
@@ -42,33 +44,8 @@ class Work extends Component {
     }
 }
 
-// 一级页面，打卡签到，根据地理位置
-class SignIn extends Component
-{
-    constructor(props) {
-        super(props);
-        this.state = {
-            longitude:'',//经度
-            latitude:'',//纬度
-            position:'深圳1',//位置名称
-            curUrl:''
-        };
-    }
-
-    componentWillMount = () => {
-
-    };
-
-    onNavigationStateChange(navState) {
-        console.log(navState.url);
-        this.setState({
-            curUrl:decodeURI(navState.url)
-
-        })
-        // this.curUrl = navState.url;
-        //跳转二级页面，签到列表
-        this.gotoPage(SignInList, '签到列表');
-    }
+// 首页
+class FirstPage extends Component{
     /**
      * 跳转
      */
@@ -93,20 +70,112 @@ class SignIn extends Component
     render()
     {
         return (
+            <View style={{paddingTop: 80}}>
+
+
+                {/*<Button onClick={() => this.gotoPage(SecondPage, '二级页面')}>*/}
+                {/*<Text style={{fontSize:28, padding: 12}}>点击跳转到二级页面</Text>*/}
+                {/*/!*<Text style={{padding: 10, fontSize: 20}}>这是首页，这是首页，这是首页，这是首页，这是首页</Text>*!/*/}
+                {/*</Button>*/}
+
+                <TouchableOpacity onPress={()=>{this.gotoPage(SignIn, '签到打卡');}}>
+                    <Image source={require('../img/customer64.png')} />
+                </TouchableOpacity>
+            </View>
+        );
+    }
+
+}
+
+// 下级页面，打卡签到，根据地理位置
+class SignIn extends Component
+{
+    constructor(props) {
+        super(props);
+        this.state = {
+            longitude:'',//经度
+            latitude:'',//纬度
+            position:'深圳1',//位置名称
+            curUrl:'',
+            addr:''
+        };
+        this.getaddr = this.getaddr.bind(this);
+    }
+
+    componentWillMount = () => {
+
+    };
+
+    onNavigationStateChange(navState) {
+        console.log(navState.url);
+        this.setState({
+            curUrl:decodeURI(navState.url)
+
+        })
+        this.getaddr(this.state.curUrl)
+        // this.curUrl = navState.url;
+        //跳转二级页面，签到列表
+        // this.gotoPage(SignInList, '签到历史');
+    }
+
+    getaddr(curUrl){
+
+
+        const arr = curUrl.split('&')
+        const addressresult = arr[0].substr(30)
+        this.setState({
+                addr: addressresult
+            }
+        )
+    }
+
+
+
+    /**
+     * 跳转
+     */
+    gotoPage(component, title)
+    {
+        // const{navigator} = this.props;
+        this.props.navigator.push(
+            {
+                component: component,
+                passProps: {
+
+                    title: title,
+                    lastPageTitle: this.props.title,
+
+                },
+
+            })
+    }
+
+    render()
+    {
+        return (
             <View style={styles.container}>
-                <WebView bounces={false}
+
+                <WebView bounces={true}
                          scalesPageToFit={true}
+
                     // https://www.cnblogs.com
                     //https://3gimg.qq.com/lightmap/components/locationPicker2/index.html?search=1&type=0&backurl=http://3gimg.qq.com/lightmap/components/locationPicker2/back.html&key=N33BZ-GICKI-AQBGN-5X72V-ZAT2S-67B3D&referer=TestMap
                     // onNavigationStateChange={(event)=>{console.log(event)}}
+                        // http://119.23.77.187:8080/getCustomerList
+
                          onNavigationStateChange={this.onNavigationStateChange.bind(this)}
-                         source={{uri:"https://3gimg.qq.com/lightmap/components/locationPicker2/index.html?search=1&type=0&backurl=http://119.23.77.187:8080/getCustomerList&key=N33BZ-GICKI-AQBGN-5X72V-ZAT2S-67B3D&referer=myapp",method: 'GET'}}
+                         source={{uri:"https://3gimg.qq.com/lightmap/components/locationPicker2/index.html?search=1&type=0&backurl=https://www.cnblogs.com&key=N33BZ-GICKI-AQBGN-5X72V-ZAT2S-67B3D&referer=myapp",method: 'GET'}}
 
                          style={{width:deviceWidth, height:deviceHeight}}>
 
-                    {/*<WebViewScreen />*/}
                 </WebView>
-                <Text style={styles.instructions}>当前位置：{this.state.curUrl}</Text>
+
+
+                <Text style={styles.instructions}>当前位置：{this.state.addr}</Text>
+                <Text style={styles.instructions}>url：{this.state.curUrl}</Text>
+
+
+                {/*<WebViewScreen />*/}
 
                 {/*<TouchableOpacity onPress={()=>{this.gotoPage(SecondPage, '客户列表');}}>*/}
                     {/*<Image source={require('../img/customer64.png')} />*/}

@@ -10,13 +10,15 @@ class MyFrame extends React.Component<any, any>{
         super(props);
         this.state = {
             selectedTab: 'redTab',
+            clicked: false
+
         };
     }
     renderContent(pageText) {
         return (
             <View style={{ flex: 1, alignItems: 'center', backgroundColor: 'white' }}>
-                <WhiteSpace size="xl" />
-                <WhiteSpace size="xl" />
+                {/*<WhiteSpace size="xl" />*/}
+                {/*<WhiteSpace size="xl" />*/}
                 <SearchBar placeholder="Search"  showCancelButton />
                 <Text style={{ margin: 50 }}>{pageText}</Text>
 
