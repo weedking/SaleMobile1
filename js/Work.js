@@ -9,6 +9,7 @@ import {AppRegistry, StyleSheet, FlatList, Text, TextInput, ListView, View, Imag
     TouchableHighlight,ScrollView, Dimensions, ActivityIndicator, RefreshControl,WebView} from 'react-native';
 import { Button, List, SearchBar, WhiteSpace, WingBlank } from 'antd-mobile-rn';
 import {Navigator } from 'react-native-deprecated-custom-components';
+import moment from "moment";
 
 import WebViewScreen from './WebViewScreen';
 
@@ -97,9 +98,14 @@ class SignIn extends Component
             latitude:'',//纬度
             position:'深圳1',//位置名称
             curUrl:'',
-            addr:''
+            addr:'',
+            signtime: '',
+            id:'',
+            count:3//用于记录路由变化
+
         };
         this.getaddr = this.getaddr.bind(this);
+        this.addQiandao = this.addQiandao.bind(this);
     }
 
     componentWillMount = () => {
@@ -107,27 +113,92 @@ class SignIn extends Component
     };
 
     onNavigationStateChange(navState) {
+        var count1 = this.state.count-1;
         console.log(navState.url);
         this.setState({
-            curUrl:decodeURI(navState.url)
+            curUrl:decodeURI(navState.url),
+            count:count1
+        });
 
-        })
-        this.getaddr(this.state.curUrl)
+        if(!this.state.count){//每次点击选取签到地址都会产生4次路由变化，最后一次才是正确的时间和地址，然后上传到数据库
+            this.getaddr(this.state.curUrl);
+
+        }
+
         // this.curUrl = navState.url;
         //跳转二级页面，签到列表
         // this.gotoPage(SignInList, '签到历史');
+
     }
+
+
 
     getaddr(curUrl){
+        // var signtime1 = new Date().Format("yyyy-MM-dd HH:mm:ss");
 
-
+        // var date = new Date().toLocaleDateString();
+        // var time = new Date().toLocaleTimeString();
+        // var signtime = date+time;
+        let st = moment().format('YYYY-MM-DD HH:mm:ss');
+        // toLocaleTimeString()
         const arr = curUrl.split('&')
-        const addressresult = arr[0].substr(30)
+        const addressresult = arr[0].substr(29)
+        // const addressresult = arr[0].substr(40)
+        // Math.floor(Math.random()*(max-min+1)+min);//产生随机数
+
+        var createID=Math.floor(Math.random()*(1000-1+1)+1);
         this.setState({
-                addr: addressresult
+                addr: addressresult,//签到地点
+                // signtime: signtime //签到时间
+                signtime: st, //签到时间
+                id: createID,
+
             }
         )
+
+        // this.addQiandao(this.state.id,this.state.signtime,this.state.addr);//新增签到记录
+        this.addQiandao(createID,st,addressresult);//新增签到记录
     }
+
+    addQiandao(id,signtime,addr){
+        let filter={
+            object:{
+                object:{
+
+                }
+            }
+        };
+
+        var preurl ="http://119.23.77.187:8080/addDaka?id=";
+        var and = "&";
+        var signtime1="signtime=";
+        var addr1="addr=";
+
+        var url= preurl+id+and+signtime1+signtime+and+addr1+addr;
+
+        // var url = "http://127.0.0.1:8080/addCustomer?id=5&name=776";
+
+        var getInformation ={
+            method:"POST",
+            headers:{
+                "Content-Type":"application/json"
+            },
+            /* json格式转换 */
+            body:JSON.stringify(filter)
+        }
+        fetch(url,getInformation)
+            .then(response => response.json())
+            .then(responseJson=>{
+                // 返回的数据 根据自己返回的json格式取值.
+                debugger;
+                console.log(responseJson);
+                this.setState({
+                    // dataSource: responseJson
+
+                })
+
+            })
+}
 
 
 
@@ -163,16 +234,20 @@ class SignIn extends Component
                     // onNavigationStateChange={(event)=>{console.log(event)}}
                         // http://119.23.77.187:8080/getCustomerList
 
+                         // onNavigationStateChange={this.onNavigationStateChange.bind(this)}
+                         source={{uri:"https://3gimg.qq.com/lightmap/components/locationPicker2/index.html?search=1&type=0&backurl=http://www.ontulip.com/&key=N33BZ-GICKI-AQBGN-5X72V-ZAT2S-67B3D&referer=myapp",method: 'GET'}}
+                         // source={{uri:"https://3gimg.qq.com/lightmap/components/locationPicker2/index.html?search=1&type=0&backurl=https://www.cnblogs.com&key=N33BZ-GICKI-AQBGN-5X72V-ZAT2S-67B3D&referer=myapp",method: 'GET'}}
                          onNavigationStateChange={this.onNavigationStateChange.bind(this)}
-                         source={{uri:"https://3gimg.qq.com/lightmap/components/locationPicker2/index.html?search=1&type=0&backurl=https://www.cnblogs.com&key=N33BZ-GICKI-AQBGN-5X72V-ZAT2S-67B3D&referer=myapp",method: 'GET'}}
-
                          style={{width:deviceWidth, height:deviceHeight}}>
 
                 </WebView>
 
 
                 <Text style={styles.instructions}>当前位置：{this.state.addr}</Text>
+                <Text style={styles.instructions}>签到时间：{this.state.signtime}</Text>
+                <Text style={styles.instructions}>id：{this.state.id}</Text>
                 <Text style={styles.instructions}>url：{this.state.curUrl}</Text>
+
 
 
                 {/*<WebViewScreen />*/}
