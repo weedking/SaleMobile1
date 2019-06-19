@@ -173,8 +173,9 @@ class SignIn extends Component
         var and = "&";
         var signtime1="signtime=";
         var addr1="addr=";
+        var signtimestr1="signtimestr=";  //用字符串的时间格式，就不用转换时间格式了。
 
-        var url= preurl+id+and+signtime1+signtime+and+addr1+addr;
+        var url= preurl+id+and+signtime1+signtime+and+addr1+addr+and+signtimestr1+signtime;
 
         // var url = "http://127.0.0.1:8080/addCustomer?id=5&name=776";
 
@@ -243,10 +244,10 @@ class SignIn extends Component
                 </WebView>
 
 
-                <Text style={styles.instructions}>当前位置：{this.state.addr}</Text>
-                <Text style={styles.instructions}>签到时间：{this.state.signtime}</Text>
-                <Text style={styles.instructions}>id：{this.state.id}</Text>
-                <Text style={styles.instructions}>url：{this.state.curUrl}</Text>
+                {/*<Text style={styles.instructions}>当前位置：{this.state.addr}</Text>*/}
+                {/*<Text style={styles.instructions}>签到时间：{this.state.signtime}</Text>*/}
+                {/*<Text style={styles.instructions}>id：{this.state.id}</Text>*/}
+                {/*<Text style={styles.instructions}>url：{this.state.curUrl}</Text>*/}
 
 
 
